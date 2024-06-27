@@ -33,7 +33,7 @@ public class CustomerRestController {
     }
 
 
-    @GetMapping(value="${id}")
+    @GetMapping(value="/{id}")
     public ResponseEntity<Customer> get(@PathVariable Long id)  throws CustomerNotFoundException {
         return this.customerRepository
                 .findById(id)
@@ -44,12 +44,12 @@ public class CustomerRestController {
     ResponseEntity<Customer> post(@RequestBody Customer c) {
         Customer customer = this.customerRepository.save(new Customer(c.getFirstName(), c.getLastName()));
         URI uri = MvcUriComponentsBuilder
-                .fromController(getClass()).path("/${id}")
+                .fromController(getClass()).path("/{id}")
                 .buildAndExpand(customer.getId()).toUri();
         return  ResponseEntity.created(uri).body(customer);
     }
 
-    @DeleteMapping(value="${id}")
+    @DeleteMapping(value="/{id}")
     ResponseEntity<?> delete(@PathVariable Long id) throws CustomerNotFoundException  {
         return this.customerRepository.findById(id)
                 .map(c->{
