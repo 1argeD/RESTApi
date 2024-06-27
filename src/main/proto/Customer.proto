@@ -1,0 +1,13 @@
+package com.example.restapi;
+
+option java_package = "com.example.restapi";
+option java_outer_classname = "CustomerProtos";
+
+message Customer{
+  optional int64 id =1;
+  required string firstName =2;
+  required string lastName =3;
+}
+message Customers {
+  required Customer customer = 1;
+}
