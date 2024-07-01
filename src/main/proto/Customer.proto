@@ -1,4 +1,4 @@
-package com.example.restapi;
+package restapi;
 
 option java_package = "com.example.restapi";
 option java_outer_classname = "CustomerProtos";
@@ -9,5 +9,5 @@ message Customer{
   required string lastName =3;
 }
 message Customers {
-  required Customer customer = 1;
+  repeated Customer customer = 1;
 }

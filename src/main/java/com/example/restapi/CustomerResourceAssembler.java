@@ -16,21 +16,26 @@ public class CustomerResourceAssembler implements RepresentationModelAssembler<C
     public EntityModel<Customer> toModel(Customer customer) {
         Customer c = new Customer();
         EntityModel<Customer> customerEntity =  EntityModel.of(c);
-        URI photoUri = MvcUriComponentsBuilder
-                .fromMethodCall(
-                        MvcUriComponentsBuilder
-                                .on(CustomerProtobufRestController.class)
-                                .read(customer.getId())
-                )
-                .buildAndExpand().toUri();
-
-        URI selfUri = MvcUriComponentsBuilder
-                .fromMethodCall(
-                        MvcUriComponentsBuilder
-                                .on(CustomerProtobufRestController.class)
-                                .get(customer.getId())
-                )
-                .buildAndExpand().toUri();
+        URI photoUri = null;
+        URI selfUri = null;
+        try {
+            photoUri = MvcUriComponentsBuilder
+                    .fromMethodCall(
+                            MvcUriComponentsBuilder
+                                    .on(CustomerProfilePhotoRestController.class)
+                                    .read(customer.getId())
+                    )
+                    .buildAndExpand().toUri();
+             selfUri = MvcUriComponentsBuilder
+                    .fromMethodCall(
+                            MvcUriComponentsBuilder
+                                    .on(CustomerProtobufRestController.class)
+                                    .get(customer.getId())
+                    )
+                    .buildAndExpand().toUri();
+        } catch (CustomerNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         customerEntity.add( Link.of(selfUri.toString(), "self"));
         customerEntity.add(Link.of(photoUri.toString(), "profile-photo"));
         return customerEntity;

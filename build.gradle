@@ -16,7 +16,7 @@ java {
 }
 protobuf {
 	protoc {
-		path = './resources/proto/Customer.proto'
+		path = './java/proto/Customer.proto'
 	}
 }
 configurations {
@@ -40,7 +40,8 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-	implementation 'com.google.protobuf:protobuf-javalite:3.8.0'//구글 프로토콜 버퍼 설정
+//	implementation 'com.google.protobuf:protobuf-javalite:3.8.0'//구글 프로토콜 버퍼 설정
+	implementation 'com.google.protobuf:protobuf-java:4.26.0'
 
 	//HAL(Hypertext Application Language) 링크의 정보를 JSON으로 표현하는 표준 통칭 HAL
 //	implementation  'org.springframework.boot:spring-boot-starter-actuater'
