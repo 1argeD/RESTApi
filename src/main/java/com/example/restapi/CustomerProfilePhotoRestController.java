@@ -74,7 +74,7 @@ public class CustomerProfilePhotoRestController {
                             }
                             URI location = fromCurrentRequest()
                                     .buildAndExpand(id).toUri();
-                            log.info(String .format("upload-finsh /customer/%s/location", id, location));
+                            log.info(String .format("upload-finish /customer/%s/location", id, location));
                             return ResponseEntity.created(location).build();
                         }
                 ).orElseThrow(CustomerNotFoundException::new);

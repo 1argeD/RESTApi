@@ -16,7 +16,7 @@ java {
 }
 protobuf {
 	protoc {
-		path = '/usr/local/bin/protoc'
+		path = './resources/proto/Customer.proto'
 	}
 }
 configurations {
@@ -41,6 +41,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
 	implementation 'com.google.protobuf:protobuf-javalite:3.8.0'//구글 프로토콜 버퍼 설정
+
+	//HAL(Hypertext Application Language) 링크의 정보를 JSON으로 표현하는 표준 통칭 HAL
+//	implementation  'org.springframework.boot:spring-boot-starter-actuater'
+	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+//	implementation 'org.springframework.data:spring-data-rest-hal-brower'
 }
 
 tasks.named('test') {

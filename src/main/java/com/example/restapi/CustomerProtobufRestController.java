@@ -16,6 +16,6 @@ public class CustomerProtobufRestController {
         this.customerRepository = customerRepository;
     }
 
-//    @GetMapping
-//    ResponseEntity<Customer.CustomerProtos>
+//    @GetMapping(value = "/{id}")
+//    ResponseEntity<Customerprotos>
 }
