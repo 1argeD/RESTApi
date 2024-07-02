@@ -3,6 +3,7 @@ plugins {
 	id 'org.springframework.boot' version '3.3.1'
 	id 'io.spring.dependency-management' version '1.1.5'
 	id "com.google.protobuf" version "0.9.4"
+	id 'org.jetbrains.kotlin.jvm' version '1.8.0'
 }
 
 
@@ -41,14 +42,25 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
 //	implementation 'com.google.protobuf:protobuf-javalite:3.8.0'//구글 프로토콜 버퍼 설정
-	implementation 'com.google.protobuf:protobuf-java:4.26.0'
+	implementation 'com.google.protobuf:protobuf-java:4.27.2'
 
 	//HAL(Hypertext Application Language) 링크의 정보를 JSON으로 표현하는 표준 통칭 HAL
-//	implementation  'org.springframework.boot:spring-boot-starter-actuater'
 	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+//	implementation  'org.springframework.boot:spring-boot-starter-actuater'
 //	implementation 'org.springframework.data:spring-data-rest-hal-brower'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+compileKotlin {
+	kotlinOptions {
+		jvmTarget = "1.8"
+	}
+}
+compileTestKotlin {
+	kotlinOptions {
+		jvmTarget = "1.8"
+	}
 }

@@ -9,6 +9,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -22,7 +23,10 @@ public class CustomerProtobufRestController {
     }
 
     @GetMapping(value = "/{id}")
-    ResponseEntity<CustomerProtos.Customer> get(@PathVariable Long id) throws CustomerNotFoundException {
+    ResponseEntity<CustomerProtos.Customer> get(@PathVariable("id") Long id) throws CustomerNotFoundException {
+        Optional<Customer> cu = this.customerRepository.findById(id);
+        CustomerProtos.Customer sd = fromEntityToProtobuf(cu.get());
+        System.out.print("직렬화 된 데이터 모습 : \n"+sd+"\n---------------------------------");
         return this.customerRepository.findById(id)
                 .map(this::fromEntityToProtobuf)
                 .map(ResponseEntity::ok)
@@ -31,8 +35,11 @@ public class CustomerProtobufRestController {
 
     @GetMapping
     ResponseEntity<CustomerProtos.Customers> getCollection() {
+//        Log consolelog = LogFactory.getLog(getClass());
         List<Customer> all = this.customerRepository.findAll();
+//        all.forEach(consolelog::info);
         CustomerProtos.Customers customers = this.fromCollectionToProtobuf(all);
+
         return ResponseEntity.ok(customers);
     }
 

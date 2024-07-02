@@ -3,9 +3,11 @@ package com.example.restapi;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.ToString;
 
 
 @Entity
+@ToString
 public class Customer {
     @Id
     @GeneratedValue

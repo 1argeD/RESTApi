@@ -19,9 +19,9 @@ import java.util.concurrent.Callable;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 @RestController
-@RequestMapping(value="/customer/{id}/photo")
+@RequestMapping(value="/customers/{id}/photo")
 public class CustomerProfilePhotoRestController {
-    private File root;
+    private final File root;
     private final CustomerRepository customerRepository;
     private final Log log = LogFactory.getLog(getClass());
 
@@ -37,7 +37,7 @@ public class CustomerProfilePhotoRestController {
     }
 
     @GetMapping
-    ResponseEntity<Resource> read(@PathVariable Long id) throws CustomerNotFoundException {
+    ResponseEntity<Resource> read(@PathVariable("id") Long id) throws CustomerNotFoundException {
         return this.customerRepository.findById(id)
                 .map(
                         customer -> {

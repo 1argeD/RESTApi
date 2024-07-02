@@ -1,6 +1,7 @@
 package com.example.restapi;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +13,9 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("/v1/customer")
+@RequiredArgsConstructor
 public class CustomerRestController {
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
 
     @RequestMapping(method = RequestMethod.OPTIONS)
     ResponseEntity<?> Entity() {
@@ -60,14 +62,14 @@ public class CustomerRestController {
     }
 
     @RequestMapping(value="/{id}", method = RequestMethod.HEAD)
-    ResponseEntity<?>  head(@PathVariable Long id) throws CustomerNotFoundException {
+    ResponseEntity<?>  head(@PathVariable("id")  Long id) throws CustomerNotFoundException {
         return this.customerRepository.findById(id)
                 .map(exist-> ResponseEntity.noContent().build())
                 .orElseThrow(()-> new CustomerNotFoundException(id));
     }
 
     @PutMapping(value = "/{id}")
-    ResponseEntity<Customer> put(@PathVariable Long id,
+    ResponseEntity<Customer> put(@PathVariable("id") Long id,
                                  @RequestBody Customer c) throws CustomerNotFoundException {
         return this.customerRepository
                 .findById(id)
